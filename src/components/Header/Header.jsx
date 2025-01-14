@@ -6,7 +6,7 @@ function Header() {
     return (
         <header className={styles.header}>
             <section>
-                <img src="../img/LogoMain.png" alt="Logo aluraflix" />
+                <img src="../../img/LogoMain.png" alt="Logo aluraflix" />
             </section>
 
             <div className={styles.headerButtons}>

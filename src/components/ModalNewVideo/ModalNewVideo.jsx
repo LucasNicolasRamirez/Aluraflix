@@ -43,14 +43,29 @@ export default function ModalNewVideo() {
     setErrors({});
   };
 
+  const convertToEmbedUrl = (url) => {
+    const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(?:embed\/)?([a-zA-Z0-9_-]{11})(?:\S+)?/;
+    const match = url.match(youtubeRegex);
+    
+    if (match) {
+      const videoId = match[1];
+      return `https://www.youtube.com/embed/${videoId}`;
+    }
+    
+    return url;
+  };
+
   const validate = () => {
     const newErrors = {};
     if (!formData.title) newErrors.title = "El título es obligatorio.";
     if (!formData.category) newErrors.category = "Seleccione una categoría.";
     if (!formData.videoUrl) {
       newErrors.videoUrl = "El enlace de video es obligatorio.";
-    } else if (!formData.videoUrl.includes("youtube.com")) {
-      newErrors.videoUrl = "La URL debe ser de YouTube";
+    } else {
+      const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(?:embed\/)?([a-zA-Z0-9_-]{11})(?:\S+)?/;
+      if (!youtubeRegex.test(formData.videoUrl)) {
+        newErrors.videoUrl = "La URL debe ser de YouTube";
+      }
     }
     return newErrors;
   };
@@ -82,7 +97,7 @@ export default function ModalNewVideo() {
     if (Object.keys(newErrors).length === 0) {
       const newVideo = {
         title: formData.title,
-        url: formData.videoUrl,
+        url: convertToEmbedUrl(formData.videoUrl),
         descripcion: formData.descripcion || '', 
         category: formData.category 
       };

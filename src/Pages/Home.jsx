@@ -50,7 +50,7 @@ function Home() {
             <Typography variant="h3" fontWeight="bold" color="#FFF">
             Bienvenido a 
             </Typography>
-            <img src="./img/LogoMain.png" alt="Logo aluraflix" style={{ width: "300px" }}/>
+            <img src="../../img/LogoMain.png" alt="Logo aluraflix" style={{ width: "300px" }}/>
           </Box>
           <LinearProgress
             variant="determinate"

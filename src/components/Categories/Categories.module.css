@@ -1,21 +1,8 @@
-.card{
-    width: 100%;
-    flex-shrink: 0; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: center;
-}
-
-.card:hover {
-    transform: scale(1.03); 
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-}
-
 .videos {
     width: 100%;
     display: flex;
     gap: 4rem;
-    align-items: flex-start;
+    align-items: center;
     padding: 20px;
     flex-wrap: nowrap;
 }
@@ -24,7 +11,7 @@
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
-    padding: 1rem 0;
+    padding: 1rem 1rem;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -44,3 +31,15 @@
 .horizontalScroll::-webkit-scrollbar-thumb:hover {
     background-color: #555;
 }
+
+.containerCategory {
+    margin-bottom: 2rem;
+}
+
+.containerVideos {
+    display: flex;
+    gap: 24px;
+    padding: 0 20px;
+}
+
+

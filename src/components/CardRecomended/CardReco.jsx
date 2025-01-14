@@ -5,7 +5,7 @@ import styles from './CardReco.module.css';
 function CardReco() {
     return (
         <>
-            <section className={styles.cardreco} style={{ backgroundImage: `url("../img/banner.png")` }} >
+            <section className={styles.cardreco} style={{ backgroundImage: `url("../../img/banner.png")` }} >
                 <div className={styles.description} >
                     <Typography variant='h2' sx={{
                         color: '#F5F5F5',
@@ -26,7 +26,7 @@ function CardReco() {
                         Challenge React
                     </Typography>
 
-                    <Typography variant='body1'>
+                    <Typography variant='body1' className={styles.descriptionChallenge}>
                         Este challenge es una forma de aprendizaje. Es un mecanismo donde podrás comprometerte en la resolución de un problema para poder aplicar todos los conocimientos adquiridos en la formación React.
                     </Typography>
                 </div>

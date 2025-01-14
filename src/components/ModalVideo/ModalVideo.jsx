@@ -12,7 +12,7 @@ const socialIcons = {
 
 const DialogVideo = ({ open, selectedVideo, onClose }) => {
   if (!selectedVideo || !selectedVideo.title || !selectedVideo.url) {
-    return null; 
+    return null;
   }
 
   return (
@@ -80,60 +80,60 @@ const DialogVideo = ({ open, selectedVideo, onClose }) => {
             }}
           />
         </div>
-        <Typography 
-          variant="body1" 
-          component="div" 
-          sx={{ 
-            fontWeight: '400', 
-            marginTop: 2,
-            '& a': {
-              color: '#61dafb',
-              textDecoration: 'none',
-              '&:hover': {
-                textDecoration: 'underline'
+        <div style={{border: '1px solid #fff', marginTop:"15px", padding:"10px" , borderRadius: '10px'}} >
+          <Typography
+            variant="body1"
+            component="div"
+            sx={{
+              fontWeight: '400',
+              marginTop: 2,
+              '& a': {
+                color: '#61dafb',
+                textDecoration: 'none',
               }
-            }
-          }}
-        >
-          <ReactMarkdown 
-            components={{
-              a: ({node, ...props}) => {
-                const platformMatch = props.href.match(/\/(github|linkedin|twitter)\//i);
-                const platform = platformMatch ? platformMatch[1].toLowerCase() : null;
-                const Icon = platform ? socialIcons[platform] : null;
-                
-                return Icon ? (
-                  <a 
-                    href={props.href} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    style={{ 
-                      display: 'inline-flex', 
-                      alignItems: 'center', 
-                      color: '#61dafb',
-                      textDecoration: 'none',
-                      margin: '0 5px'
-                    }}
-                  >
-                    <Icon style={{ marginRight: '5px' }} /> {props.children}
-                  </a>
-                ) : (
-                  <a 
-                    {...props} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    style={{ 
-                      color: '#61dafb', 
-                      textDecoration: 'underline' 
-                    }}
-                  />
-                );
-              },
             }}
           >
-            {selectedVideo.descripcion}
-          </ReactMarkdown>
-        </Typography>
+            <ReactMarkdown
+              components={{
+                a: ({ node, ...props }) => {
+                  const platformMatch = props.href.match(/\/(github|linkedin|twitter)\//i);
+                  const platform = platformMatch ? platformMatch[1].toLowerCase() : null;
+                  const Icon = platform ? socialIcons[platform] : null;
+
+                  return Icon ? (
+                    <a
+                      href={props.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        color: '#61dafb',
+                        textDecoration: 'none',
+                        margin: '0 5px'
+                      }}
+                    >
+                      <Icon style={{ marginRight: '5px' }} /> {props.children}
+                    </a>
+                  ) : (
+                    <a
+                      {...props}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        color: '#61dafb',
+                        textDecoration: 'none',
+
+                      }}
+                    />
+                  );
+                },
+              }}
+            >
+              {selectedVideo.descripcion}
+            </ReactMarkdown>
+          </Typography>
+        </div>
       </DialogContent>
     </Dialog>
   );

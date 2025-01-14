@@ -49,10 +49,29 @@ export default function FormEdicion({ video }) {
 
     const videoCategory = getCategoryForVideo(video);
 
+    const getOriginalUrl = (embedUrl) => {
+        const videoIdMatch = embedUrl.match(/embed\/([a-zA-Z0-9_-]{11})/);
+        return videoIdMatch 
+            ? `https://youtu.be/${videoIdMatch[1]}` 
+            : embedUrl;
+    };
+
+    const convertToEmbedUrl = (url) => {
+        const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(?:embed\/)?([a-zA-Z0-9_-]{11})(?:\S+)?/;
+        const match = url.match(youtubeRegex);
+        
+        if (match) {
+            const videoId = match[1];
+            return `https://www.youtube.com/embed/${videoId}`;
+        }
+        
+        return url;
+    };
+
     const [formData, setFormData] = useState(() => ({
         titulo: video.title || "",
         categoria: getCategoryLabel(videoCategory) || "",
-        video: video.url || "",
+        video: video.url ? getOriginalUrl(video.url) : "",
         descripcion: video.descripcion || "",
     }));
 
@@ -66,7 +85,7 @@ export default function FormEdicion({ video }) {
             setFormData({
                 titulo: video.title || "",
                 categoria: getCategoryLabel(newCategory) || "",
-                video: video.url || "",
+                video: video.url ? getOriginalUrl(video.url) : "",
                 descripcion: video.descripcion || "",
             });
         }
@@ -78,7 +97,7 @@ export default function FormEdicion({ video }) {
     };
 
     const validateYouTubeUrl = (url) => {
-        const youtubeRegex = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/;
+        const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(?:embed\/)?([a-zA-Z0-9_-]{11})(?:\S+)?/;
         return youtubeRegex.test(url);
     };
 
@@ -107,7 +126,7 @@ export default function FormEdicion({ video }) {
                 
                 updateVideo(video.id, {
                     title: formData.titulo,
-                    url: formData.video,
+                    url: convertToEmbedUrl(formData.video),
                     descripcion: formData.descripcion,
                     category: categoryValue
                 });

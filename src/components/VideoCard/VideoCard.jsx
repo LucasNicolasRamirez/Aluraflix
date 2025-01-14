@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Card, CardActions, Typography, Fade } from '@mui/material';
+import { Card, CardActions, Typography, } from '@mui/material';
 import EliminarVideo from '../EliminarVideo/EliminarVideo';
 import FormEdicion from '../FormEdicion/FormEdicion';
 
-const VideoCard = ({ video, onClick }) => {
+const VideoCard = ({ video, onClick, categoryColor = '#FFFFFF' }) => {
   const [show, setShow] = useState(true);
 
   const handleDelete = () => {
@@ -11,8 +11,9 @@ const VideoCard = ({ video, onClick }) => {
   };
 
   return (
-    <Fade in={show} timeout={500}>
+
       <Card 
+        className='card'
         key={video.id}
         sx={{ 
           width: "calc(33.33% - 40px)", 
@@ -23,10 +24,10 @@ const VideoCard = ({ video, onClick }) => {
           borderRadius: '10px',
           cursor: "pointer",
           boxSizing: "border-box",
-          transition: "transform .3s ease",
+          transition: "transform .5s ease, box-shadow .5s ease",
           '&:hover': {
-            transform: "scale(1.05)",
-            boxShadow: "0 6px 15px rgba(0, 0, 0, 0.3)",
+            transform: "scale(1.04)",
+            boxShadow: `0 0 20px 5px ${categoryColor}`,
           }
         }}
       >
@@ -69,7 +70,7 @@ const VideoCard = ({ video, onClick }) => {
           <FormEdicion video={video} />
         </CardActions>
       </Card>
-    </Fade>
+
   );
 };
 

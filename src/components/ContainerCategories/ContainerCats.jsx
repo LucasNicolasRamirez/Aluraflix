@@ -4,10 +4,7 @@ import styles from "./ContainerCats.module.css";
 function ContainerCats() {
     return (
         <section className={styles.container}>
-                <div>
-                    <Categories />
-                </div>
-
+            <Categories />
         </section>
     );
 }

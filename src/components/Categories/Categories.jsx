@@ -125,10 +125,10 @@ export default function Categories() {
                 {category.videos.map((video) => (
                   <React.Fragment key={video.id}>
                     <VideoCard
-                      key={`${category.key}-${video.id || video.title}`}
+                      key={`${category.key}-${video.id}`}
                       video={video}
-                      color={categoryColors[category.key]}
                       onClick={() => handleOpen(video)}
+                      categoryColor={categoryColors[category.key]}
                     />
                     {editingVideo && editingVideo.id === video.id && (
                       <FormEdicion
