@@ -1,0 +1,11 @@
+.card{
+    width: 100%;
+    flex-shrink: 0; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    transition: transform .3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
