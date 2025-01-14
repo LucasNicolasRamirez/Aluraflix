@@ -46,6 +46,8 @@ AluraFlix es una plataforma de streaming de videos desarrollada como parte del d
 - [Analisis de rendimiento, accesibilidad, SEO y buenas practicas de LightHouse](https://github.com/user-attachments/assets/080f063e-8700-4464-8e67-79f6f1d89df8)
   ![image](https://github.com/user-attachments/assets/080f063e-8700-4464-8e67-79f6f1d89df8)
 
+- Link de la página: https://aluraflix-nu-ten.vercel.app
+
 ### 🚧 Estado Actual del Proyecto
 
 **Trabajo en Progreso**:
