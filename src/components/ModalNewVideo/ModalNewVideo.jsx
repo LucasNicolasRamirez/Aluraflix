@@ -137,13 +137,24 @@ export default function ModalNewVideo() {
       <Modal open={open} onClose={handleClose}>
         <Box
           sx={{
+            width: '90%',
             maxWidth: 600,
-            margin: "50px auto",
+            margin: "5% auto",
+            '@media (min-width: 768px)': {
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              margin: 0,
+              width: '90%',
+              maxWidth: 800
+            },
             padding: 3,
             backgroundColor: "#1c1c1c",
             borderRadius: 4,
-            border: "1px solid #FFF",
+            border: "1px solid #fff",
             color: "#fff",
+            boxSizing: 'border-box'
           }}
         >
           <Typography variant="h3" sx={{ textAlign: "center", marginBottom: 2 }}>
@@ -236,7 +247,7 @@ export default function ModalNewVideo() {
                 value={formData.descripcion}
                 onChange={handleChange}
                 multiline
-                rows={3}
+                rows={8}
                 sx={{
                   "& .MuiInputBase-input": { color: "#fff" },
                   "& .MuiFormLabel-root": { color: "#fff" },

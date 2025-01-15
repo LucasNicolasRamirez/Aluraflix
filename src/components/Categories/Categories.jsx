@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, } from "react";
 import { Typography, Box, Divider } from "@mui/material";
 import styles from './Categories.module.css';
 import { VideoContext } from "../Context/VideoContext";
@@ -76,6 +76,8 @@ export default function Categories() {
 
   const categoriasConVideos = categories.filter(cat => cat.videos && cat.videos.length > 0);
 
+
+
   return (
     <>
       {categoriasConVideos.map((category, index) => (
@@ -93,10 +95,9 @@ export default function Categories() {
           <Box
             sx={{
               width: "100%",
-              borderRadius: "4px",
               padding: "20px 20px",
               marginBottom: "5px",
-              overflow: "hidden"
+              overflow: "hidden",
             }}
           >
             <Typography

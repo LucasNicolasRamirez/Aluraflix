@@ -1,8 +1,19 @@
-import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography } from '@mui/material';
+import React, { useState, useRef } from 'react';
+import { 
+  Dialog, 
+  DialogTitle, 
+  DialogContent, 
+  DialogActions, 
+  Button, 
+  Typography 
+} from '@mui/material';
+import { CSSTransition } from 'react-transition-group';
 import CloseIcon from '@mui/icons-material/Close';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ReactMarkdown from 'react-markdown';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import './ModalVideo.css';
 
 const socialIcons = {
   github: FaGithub,
@@ -14,6 +25,12 @@ const DialogVideo = ({ open, selectedVideo, onClose }) => {
   if (!selectedVideo || !selectedVideo.title || !selectedVideo.url) {
     return null;
   }
+
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+
+  const toggleDescription = () => {
+    setIsDescriptionExpanded(!isDescriptionExpanded);
+  };
 
   return (
     <Dialog
@@ -29,24 +46,66 @@ const DialogVideo = ({ open, selectedVideo, onClose }) => {
         },
       }}
     >
-      <DialogActions sx={{ justifyContent: 'space-between' }} >
-        <DialogTitle>
-          <Typography variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
+      <DialogActions sx={{ 
+        justifyContent: 'space-between', 
+        boxSizing: 'border-box', 
+        width: '100%',
+        overflowX: 'hidden',
+        display: 'flex', 
+        alignItems: 'center', 
+        padding: '8px 16px',
+        '@media (max-width: 600px)': {
+          padding: '8px 8px'
+        }
+      }} >
+        <DialogTitle 
+          sx={{
+            flex: 1, 
+            width: '100%',
+            padding: '0 16px',
+            '@media (max-width: 600px)': {
+              padding: '0 8px'
+            }
+          }}
+        >
+          <Typography 
+            variant="h5" 
+            component="div" 
+            sx={{ 
+              fontWeight: 'bold', 
+              width: '100%',
+              '@media (max-width: 600px)': {
+                fontSize: '1.5rem', 
+                lineHeight: 1.2,
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden'
+              }
+            }}
+          >
             {selectedVideo.title}
           </Typography>
         </DialogTitle>
-        <Button onClick={onClose} color="primary" sx={{
-          '&:hover': {
-            backgroundColor: 'transparent',
-            boxShadow: 'none',
-          }
-        }} >
-          <CloseIcon sx={{ scale: 1.8 }} />
+        <Button 
+          onClick={onClose} 
+          color="primary" 
+          sx={{
+            minWidth: 'auto',
+            padding: '4px',
+            '&:hover': {
+              backgroundColor: 'transparent',
+              boxShadow: 'none',
+            }
+          }} 
+        >
+          <CloseIcon sx={{ scale: 1.5 }} />
         </Button>
       </DialogActions>
       <DialogContent
         sx={{
           maxHeight: 'auto',
+          overflowX: 'hidden',
           overflowY: 'auto',
           '&::-webkit-scrollbar': {
             width: '8px', gap: '10px',
@@ -81,58 +140,77 @@ const DialogVideo = ({ open, selectedVideo, onClose }) => {
           />
         </div>
         <div style={{border: '1px solid #fff', marginTop:"15px", padding:"10px" , borderRadius: '10px'}} >
-          <Typography
-            variant="body1"
-            component="div"
+          <Typography 
+            variant="body1" 
+            className="description-preview"
             sx={{
-              fontWeight: '400',
-              marginTop: 2,
-              '& a': {
-                color: '#61dafb',
-                textDecoration: 'none',
-              }
+              position: 'relative',
+              marginBottom: '10px'
             }}
           >
             <ReactMarkdown
               components={{
-                a: ({ node, ...props }) => {
-                  const platformMatch = props.href.match(/\/(github|linkedin|twitter)\//i);
-                  const platform = platformMatch ? platformMatch[1].toLowerCase() : null;
-                  const Icon = platform ? socialIcons[platform] : null;
-
-                  return Icon ? (
-                    <a
-                      href={props.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        color: '#61dafb',
-                        textDecoration: 'none',
-                        margin: '0 5px'
-                      }}
-                    >
-                      <Icon style={{ marginRight: '5px' }} /> {props.children}
-                    </a>
-                  ) : (
-                    <a
-                      {...props}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        color: '#61dafb',
-                        textDecoration: 'none',
-
-                      }}
-                    />
-                  );
-                },
+                a: ({node, ...props}) => (
+                  <a 
+                    {...props} 
+                    style={{ color: '#61dafb', textDecoration: 'none' }}
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  />
+                )
               }}
             >
               {selectedVideo.descripcion}
             </ReactMarkdown>
           </Typography>
+
+          {selectedVideo.descripcion && selectedVideo.descripcion.length > 200 && (
+            <CSSTransition
+              in={isDescriptionExpanded}
+              timeout={300}
+              classNames="description"
+              unmountOnExit
+            >
+              <Typography 
+                variant="body1" 
+                sx={{
+                  position: 'relative',
+                  overflow: 'hidden',
+                  transition: 'max-height 0.3s ease',
+                  paddingBottom: '40px'
+                }}
+              >
+                <ReactMarkdown
+                  components={{
+                    a: ({node, ...props}) => (
+                      <a 
+                        {...props} 
+                        style={{ color: '#61dafb', textDecoration: 'none' }}
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      />
+                    )
+                  }}
+                >
+                  {selectedVideo.descripcion}
+                </ReactMarkdown>
+              </Typography>
+            </CSSTransition>
+          )}
+
+          {selectedVideo.descripcion && selectedVideo.descripcion.length > 200 && (
+            <Button 
+              onClick={toggleDescription}
+              fullWidth
+              endIcon={isDescriptionExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              sx={{
+                marginTop: '10px',
+                color: '#1976d2'
+              }}
+            >
+              {isDescriptionExpanded ? 'Ver menos' : 'Ver más'}
+            </Button>
+          )}
         </div>
       </DialogContent>
     </Dialog>

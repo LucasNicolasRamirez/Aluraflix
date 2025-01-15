@@ -1,9 +1,8 @@
 import Categories from "../Categories/Categories";
-import styles from "./ContainerCats.module.css";
 
 function ContainerCats() {
     return (
-        <section className={styles.container}>
+        <section>
             <Categories />
         </section>
     );

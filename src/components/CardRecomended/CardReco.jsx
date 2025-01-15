@@ -32,7 +32,7 @@ function CardReco() {
                 </div>
 
                 <div className={styles.video} >
-                    <iframe width="650" height="400" src="https://www.youtube.com/embed/ov7vA5HFe6w?si=gUION_x9n9HfNDGF" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                    <iframe  src="https://www.youtube.com/embed/ov7vA5HFe6w?si=gUION_x9n9HfNDGF" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                 </div>
             </section>
         </>

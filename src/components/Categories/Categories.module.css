@@ -1,18 +1,23 @@
 .videos {
-    width: 100%;
-    display: flex;
-    gap: 4rem;
-    align-items: center;
-    padding: 20px;
-    flex-wrap: nowrap;
+    display: contents;
 }
 
 .horizontalScroll {
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
+    box-sizing: border-box;
     overflow-x: auto;
     scroll-behavior: smooth;
-    padding: 1rem 1rem;
+    grid-gap: 2rem;
+    padding: 2rem;
     -webkit-overflow-scrolling: touch;
+    grid-auto-columns: calc(33.33% - 1rem);
+}
+
+@media (max-width: 768px) {
+    .horizontalScroll {
+        grid-auto-columns: 100%; /* Un solo elemento por vez */
+    }
 }
 
 .horizontalScroll::-webkit-scrollbar {
@@ -31,15 +36,3 @@
 .horizontalScroll::-webkit-scrollbar-thumb:hover {
     background-color: #555;
 }
-
-.containerCategory {
-    margin-bottom: 2rem;
-}
-
-.containerVideos {
-    display: flex;
-    gap: 24px;
-    padding: 0 20px;
-}
-
-

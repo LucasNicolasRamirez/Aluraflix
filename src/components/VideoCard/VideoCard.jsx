@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardActions, Typography, } from '@mui/material';
 import EliminarVideo from '../EliminarVideo/EliminarVideo';
 import FormEdicion from '../FormEdicion/FormEdicion';
+import styles from './VideoCard.module.css';
 
 const VideoCard = ({ video, onClick, categoryColor = '#FFFFFF' }) => {
   const [show, setShow] = useState(true);
@@ -13,13 +14,9 @@ const VideoCard = ({ video, onClick, categoryColor = '#FFFFFF' }) => {
   return (
 
       <Card 
-        className='card'
+        className={styles.card}
         key={video.id}
         sx={{ 
-          width: "calc(33.33% - 40px)", 
-          Width: "100%",
-          flex: "0 0 auto",
-          height:"100%",
           backgroundColor: '#000', 
           borderRadius: '10px',
           cursor: "pointer",
@@ -31,22 +28,19 @@ const VideoCard = ({ video, onClick, categoryColor = '#FFFFFF' }) => {
           }
         }}
       >
-        <div
-          style={{ position: 'relative', paddingTop: '56.25%', cursor: 'pointer' }}
-          onClick={onClick}
-        >
+        <div onClick={onClick}>
           <iframe
             src={video.url}
             title={video.title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
             style={{
-              position: 'absolute',
               top: 0,
-              left: 0,
+             left: 0,
               width: '100%',
               height: '100%',
               borderRadius: '10px',
+              border: 'none',
               pointerEvents: 'none',
             }}
           />
@@ -75,3 +69,4 @@ const VideoCard = ({ video, onClick, categoryColor = '#FFFFFF' }) => {
 };
 
 export default VideoCard;
+

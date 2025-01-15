@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import Edit from "@mui/icons-material/Edit";
 import { VideoContext } from "../Context/VideoContext";
+import styles from "./FormEdicion.module.css";
 
 const categories = [
     { label: "Frontend", value: "frontEnd" },
@@ -26,14 +27,14 @@ const categories = [
 export default function FormEdicion({ video }) {
     const { updateVideo, videos } = useContext(VideoContext);
     const [open, setOpen] = useState(false);
-    
+
     const getCategoryForVideo = (videoData) => {
         const categories = ['frontEnd', 'backEnd', 'innovacionGestion', 'uxUiDiseño', 'devOps', 'mobileDevelopment', 'dataScience', 'otros'];
-        
+
         for (let category of categories) {
             const categoryVideos = videos[category] || [];
             const videoInCategory = categoryVideos.find(v => v.id === videoData.id);
-            
+
             if (videoInCategory) {
                 return category;
             }
@@ -51,20 +52,20 @@ export default function FormEdicion({ video }) {
 
     const getOriginalUrl = (embedUrl) => {
         const videoIdMatch = embedUrl.match(/embed\/([a-zA-Z0-9_-]{11})/);
-        return videoIdMatch 
-            ? `https://youtu.be/${videoIdMatch[1]}` 
+        return videoIdMatch
+            ? `https://youtu.be/${videoIdMatch[1]}`
             : embedUrl;
     };
 
     const convertToEmbedUrl = (url) => {
         const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(?:embed\/)?([a-zA-Z0-9_-]{11})(?:\S+)?/;
         const match = url.match(youtubeRegex);
-        
+
         if (match) {
             const videoId = match[1];
             return `https://www.youtube.com/embed/${videoId}`;
         }
-        
+
         return url;
     };
 
@@ -81,7 +82,7 @@ export default function FormEdicion({ video }) {
     useEffect(() => {
         if (video) {
             const newCategory = getCategoryForVideo(video);
-            
+
             setFormData({
                 titulo: video.title || "",
                 categoria: getCategoryLabel(newCategory) || "",
@@ -116,14 +117,14 @@ export default function FormEdicion({ video }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         const newErrors = validate();
-        
+
         if (Object.keys(newErrors).length === 0) {
             try {
 
-                const categoryValue = categories.find(cat => cat.label === formData.categoria)?.value || 
-                    getCategoryForVideo(video) || 
+                const categoryValue = categories.find(cat => cat.label === formData.categoria)?.value ||
+                    getCategoryForVideo(video) ||
                     'otros';
-                
+
                 updateVideo(video.id, {
                     title: formData.titulo,
                     url: convertToEmbedUrl(formData.video),
@@ -156,12 +157,24 @@ export default function FormEdicion({ video }) {
             <Modal open={open} onClose={() => setOpen(false)}>
                 <Box
                     sx={{
+                        width: '90%',
                         maxWidth: 600,
-                        margin: "50px auto",
+                        margin: "30% auto",
+                        '@media (min-width: 768px)': {
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            margin: 0,
+                            width: '90%',
+                            maxWidth: 800
+                        },
                         padding: 3,
                         backgroundColor: "#1c1c1c",
-                        borderRadius: 2,
+                        borderRadius: 4,
+                        border: "1px solid #fff",
                         color: "#fff",
+                        boxSizing: 'border-box'
                     }}
                 >
                     <Typography variant="h5" sx={{ textAlign: "center", marginBottom: 3 }}>
@@ -230,7 +243,7 @@ export default function FormEdicion({ video }) {
                                 value={formData.descripcion}
                                 onChange={handleChange}
                                 multiline
-                                rows={4}
+                                rows={10}
                                 sx={{
                                     "& .MuiInputBase-input": { color: "#fff" },
                                     "& .MuiFormLabel-root": { color: "#fff" },
